@@ -2,7 +2,6 @@
 
 version=0.0.1
 
-cd /root
-tar cvpzf nagator-$version.tar.gz nagator-$version
-pip install nagator-$version.tar.gz
-cd /root/nagator-$version
+python setup.py sdist
+cd dist
+sudo pip-2.7 install nagator-0.0.1.tar.gz
