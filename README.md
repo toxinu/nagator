@@ -7,6 +7,10 @@ It use [pynag](http://code.google.com/p/pynag/) and [clint](https://github.com/k
 Installation
 ------------
 <pre>
+sudo pip install nagator
+</pre>
+or get the sources like that:
+<pre>
 git clone git://github.com/Socketubs/Nagator.git
 cd Nagator
 sudo python setup.py install
