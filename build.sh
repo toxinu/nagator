@@ -3,5 +3,5 @@
 version=0.0.1
 
 python setup.py sdist
-cd dist
-sudo pip-2.7 install nagator-0.0.1.tar.gz
+sudo pip-2.7 uninstall nagator
+sudo pip-2.7 install dist/nagator-$version.tar.gz
