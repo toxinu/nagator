@@ -69,11 +69,12 @@ def legend(what, options):
 			puts(colored.white('No legend for this mode'))
 
 def mode_list(what, nc, filtre, options):
+	hosts_founded = []
 	hosts_filtered = []
-	hosts_not_filtered = []
+	services_founded = []
 	services_filtered = []
-	services_not_filtered = []
 
+	# Print Filter
 	if 'verbose' in options:
 		if filtre:
 			with indent(4, quote=colored.red('==>')):
@@ -83,12 +84,12 @@ def mode_list(what, nc, filtre, options):
 					puts("%s: %s" % (key, value))
 		print
 
+	# If --list host
 	if what == 'host':
 		for host in nc['all_host']:
 			filtered = False
 			for element in filtre:
 				if element in host.keys():
-					#if host[element] != filtre[element]:
 					try:
 						filtre_pattern = re.compile(filtre[element])
 					except:
@@ -105,20 +106,20 @@ def mode_list(what, nc, filtre, options):
 					break
 
 			if not filtered:
-				hosts_not_filtered.append(host)
+				hosts_founded.append(host)
 			else:
 				hosts_filtered.append(host)
 
-		print
-		with indent(3, quote=colored.white(' ==> ')):
+		with indent(3, quote=colored.white(' ====> ')):
 			puts("Hosts founded")
 
-		if hosts_not_filtered:
-			for host_not_filtered in hosts_not_filtered:
+		# Print hosts founded
+		if hosts_founded:
+			for host_not_filtered in hosts_founded:
 				if host_not_filtered.has_key('register'):
 					if host_not_filtered['register'] == '0':
 						with indent(3, quote=colored.red(' >> ')):
-							puts("%s (template)" % host_not_filtered['name'])
+							puts("%s" % host_not_filtered['name'])
 					else:
 						with indent(3, quote=colored.green(' >> ')):
 							puts("%s" % host_not_filtered['host_name'])
@@ -134,39 +135,46 @@ def mode_list(what, nc, filtre, options):
 							else:
 								with indent(3, quote=colored.white('    | ')):
 									puts("%s: %s" % (colored.blue(key), colored.yellow(value)))
-		else:
-			with indent(3, quote=colored.white('     ')):
-				puts("...nothing...")
+
+		#else:
+		#	with indent(3, quote=colored.white('     ')):
+		#		puts("...  nothing...")
+
+		with indent(3, quote=colored.white(' ==> ')):
+			puts("Total: %s" % len(hosts_founded))
+
 
 		# Hosts filtered
 		if 'show_filtered' in options:
-			print
-			with indent(3, quote=colored.white(' ==> ')):
+			print('')
+			with indent(3, quote=colored.white(' ====> ')):
 				puts("Hosts filtered")
 	
 			if hosts_filtered:
 				for host_filtered in hosts_filtered:
 					if host_filtered.has_key('register'):
 						if host_filtered['register'] == '0':
-							with indent(3, quote=colored.red('  >> ')):
-								puts("%s (template)" % host_filtered['name'])
+							with indent(3, quote=colored.red(' >> ')):
+								puts("%s" % host_filtered['name'])
 						else:
-							with indent(3, quote=colored.green('  >> ')):
+							with indent(3, quote=colored.green(' >> ')):
 								puts("%s" % host_filtered['host_name'])
 					else:
-						with indent(3, quote=colored.green('  >> ')):
+						with indent(3, quote=colored.green(' >> ')):
 							puts("%s" % host_filtered['host_name'])
-			else:
-				with indent(3, quote=colored.white('     ')):
-					puts("...nothing...")
+			#else:
+			#	with indent(3, quote=colored.white('     ')):
+			#		puts("  ...nothing...")
 
+			with indent(3, quote=colored.white(' ==> ')):
+				puts("Total: %s" % len(hosts_filtered))
+
+	# If --list service
 	if what == 'service':
 		for service in nc['all_service']:
-
 			filtered = False
 			for element in filtre:
 				if element in service.keys():
-					#if service[element] != filtre[element]:
 					try:
 						filtre_pattern = re.compile(filtre[element])
 					except:
@@ -183,10 +191,19 @@ def mode_list(what, nc, filtre, options):
 					break
 
 			if not filtered:
+				services_founded.append(service)
+			else:
+				services_filtered.append(service)
+
+		with indent(3, quote=colored.white(' ====> ')):
+			puts("Services founded")
+
+		if services_founded:
+			for service in services_founded:
 				if service.has_key('register'):
 					if service['register'] == '0':
 						with indent(3, quote=colored.red(' >> ')):
-							puts("%s (template)" % service['name'])
+							puts("%s" % service['name'])
 					else:
 						with indent(3, quote=colored.green(' >> ')):
 							puts("%s" % service['service_description'])
@@ -194,33 +211,45 @@ def mode_list(what, nc, filtre, options):
 					with indent(3, quote=colored.green(' >> ')):
 						puts("%s" % service['service_description'])
 
-				for key, value in sorted(service.items()):
-					if key != 'meta':
-						if key in service['meta']['inherited_attributes']:
-							with indent(3, quote=colored.white('    | ')):
-								puts("%s: %s" % (colored.blue(key), colored.green(value)))
-						else:
-							with indent(3, quote=colored.white('    | ')):
-								puts("%s: %s" % (colored.blue(key), colored.yellow(value)))
-			else:
-				services_filtered.append(service)
+				if not 'small' in options:
+					for key, value in sorted(service.items()):
+						if key != 'meta':
+							if key in service['meta']['inherited_attributes']:
+								with indent(3, quote=colored.white('    | ')):
+									puts("%s: %s" % (colored.blue(key), colored.green(value)))
+							else:
+								with indent(3, quote=colored.white('    | ')):
+									puts("%s: %s" % (colored.blue(key), colored.yellow(value)))
+		#else:
+		#	with indent(3, quote=colored.white('     ')):
+		#		puts("  ...nothing...")
 
-		if services_filtered:
-			print
-			with indent(3, quote=colored.white(' ==> ')):
+		with indent(3, quote=colored.white(' ==> ')):
+			puts("Total: %s" % len(services_founded))
+
+		if 'show_filtered' in options:
+			print('')
+			with indent(3, quote=colored.white(' ====> ')):
 				puts("Services filtered")
 
-		for service_filtered in services_filtered:
-			if service_filtered.has_key('register'):
-				if service_filtered['register'] == '0':
-					with indent(3, quote=colored.red('  >> ')):
-						puts("%s (template)" % service_filtered['name'])
-				else:
-					with indent(3, quote=colored.green('  >> ')):
-						puts("%s" % service_filtered['service_description'])
-			else:
-				with indent(3, quote=colored.green(' >> ')):
-					puts("%s" % service_filtered['service_description'])
+			if services_filtered:
+				for service_filtered in services_filtered:
+					if service_filtered.has_key('register'):
+						if service_filtered['register'] == '0':
+							with indent(3, quote=colored.red(' >> ')):
+								puts("%s" % service_filtered['name'])
+						else:
+							with indent(3, quote=colored.green(' >> ')):
+								puts("%s" % service_filtered['service_description'])
+					else:
+						with indent(3, quote=colored.green(' >> ')):
+							puts("%s" % service_filtered['service_description'])
+			#else:
+			#	with indent(3, quote=colored.white('     ')):
+			#		puts("  ...nothing...")
+
+			with indent(3, quote=colored.white(' ==> ')):
+				puts("Total: %s" % len(services_filtered))
 
 def main():
 

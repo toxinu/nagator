@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=0.0.1
+version=0.0.2
 
 python setup.py sdist
 sudo pip-2.7 uninstall nagator

@@ -15,10 +15,33 @@ git clone git://github.com/Socketubs/Nagator.git
 cd Nagator
 sudo python setup.py install
 </pre>
+
 Usage
 -----
+Print list of every hosts (templates not include) with legend
 <pre>
-nagator --help
+nagator --list host --options small,legend --address '(.*)'
 </pre>
+
+Print service templates
+<pre>
+nagator --list service --register 0
+</pre>
+
+Aliases
+-------
+There are some aliases examples.
+<pre>
+# Print pretty list of every hosts (templates not include)
+alias nagator-hosts="nagator --list host --options small --address '(.*)'"
+
+# Same with services
+alias nagator-services="nagator --list service --options small --host_name '(.*)'"
+</pre>
+
+Todo
+----
+
+ * If service or host have no register option and give filter with register 1, print it
 
 No licence, copy it.
