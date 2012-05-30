@@ -43,5 +43,9 @@ Todo
 ----
 
  * If service or host have no register option and give filter with register 1, print it
+ * Convert Readme to Rst
+ * List sorted Hosts/Services
+ * Implement Contacts, ContactGroups... listing
+ * Create Python package
 
 No licence, copy it.
