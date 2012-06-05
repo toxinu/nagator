@@ -7,25 +7,25 @@ It use `pynag <http://code.google.com/p/pynag/>`_ and `clint <https://github.com
 Installation
 ------------
 
-Install with pip:::
+Install with pip: ::
 
 	pip install nagator
 
 Usage
 -----
 
-Print list of every hosts (templates not include) with legend:::
+Print list of every hosts (templates not include) with legend: ::
 
 	nagator --list host --options small,legend --address '(.*)'
 
-Print service templates:::
+Print service templates: ::
 
 	nagator --list service --register 0
 
 Aliases
 -------
 
-There are some aliases examples.::
+There are some aliases examples: ::
 
 	# Print pretty list of every hosts (templates not include)
 	alias nagator-hosts="nagator --list host --options small --address '(.*)'"
