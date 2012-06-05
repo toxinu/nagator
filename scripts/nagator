@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from nagator import nagator
+from nagator import core as nagator
 
 if __name__=="__main__":
     nagator.main()
