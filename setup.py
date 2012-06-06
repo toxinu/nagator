@@ -15,11 +15,12 @@ if sys.argv[-1] == 'publish':
 
 setup(
 	name = 'nagator',
-	version = '0.0.3',
+	version = '0.0.4',
 	author = "Geoffrey Lehee",
 	author_email = "geoffrey@lehee.name",
 	description = "Nagios configuration viewer",
-	long_description=open('README.rst').read(),
+	long_description=open('README.rst').read() + '\n\n' +
+					 open('HISTORY.rst').read(),
 	license=open("LICENSE").read(),
 	keywords = "nagios cli parser viewer",
 	url = "https://github.com/Socketubs/Nagator",
