@@ -1,1 +1,4 @@
 graft conf
+include LICENSE MANIFEST.in README.rst HISTORY.rst
+recursive-exclude * *.pyc 
+recursive-exclude * *.pyo
