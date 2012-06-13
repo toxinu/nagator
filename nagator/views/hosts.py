@@ -1,4 +1,5 @@
 import re
+import sys
 from clint.textui import colored, indent, puts
 
 def list(nc, filtre, options):
