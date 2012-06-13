@@ -15,7 +15,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
 	name = 'nagator',
-	version = '0.0.4',
+	version = '0.0.5',
 	author = "Geoffrey Lehee",
 	author_email = "geoffrey@lehee.name",
 	description = "Nagios configuration viewer",
