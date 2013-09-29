@@ -1,7 +1,7 @@
 Description
 -----------
 
-Nagator is a command line Nagios configuration viewer written in Python.  
+Nagator is a command line Nagios configuration viewer written in Python.
 It use `pynag <http://code.google.com/p/pynag/>`_ and `clint <https://github.com/kennethreitz/clint>`_ as dependencies.
 
 Installation
@@ -40,4 +40,4 @@ Todo
 - Implement hostdependency, hostdependency
 - Better view for timeperiods
 
-See `LICENSE <https://github.com/Socketubs/Nagator/blob/master/LICENSE>`_.
+See `LICENSE <https://git.socketubs.org/?p=nagator.git;a=blob_plain;f=LICENSE;hb=HEAD>`_.
