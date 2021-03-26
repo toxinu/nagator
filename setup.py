@@ -16,14 +16,14 @@ if sys.argv[-1] == 'publish':
 setup(
 	name = 'nagator',
 	version = '0.1.0',
-	author = "Geoffrey Lehee",
-	author_email = "hello@socketubs.org",
+	author = "toxinu",
+	author_email = "toxinu@gmail.com",
 	description = "Nagios configuration viewer",
 	long_description=open('README.rst').read() + '\n\n' +
 					 open('HISTORY.rst').read(),
 	license=open("LICENSE").read(),
 	keywords = "nagios cli parser viewer",
-	url = "https://git.socketubs.org/?p=nagator.git",
+	url = "https://github.com/toxinu/nagator",
 	data_files=[('/etc', ['conf/nagator.cfg'])],
 	packages = ['nagator', 'nagator.views'],
 	scripts = ['scripts/nagator'],
